@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
+import objects.Coin;
 
 class PlayState extends FlxState
 {
@@ -14,18 +15,24 @@ class PlayState extends FlxState
 	// Add things part 1
 	public var collision(default, null):FlxTypedGroup<FlxSprite>;
 	public var tux(default, null):Tux;
+	public var items(default, null):FlxTypedGroup<FlxSprite>;
+	private var hud:HUD;
 
 	override public function create()
 	{
 		// Add things part 2
 		collision = new FlxTypedGroup<FlxSprite>();
 		tux = new Tux();
+		items = new FlxTypedGroup<FlxSprite>();
+		hud = new HUD();
 
 		LevelLoader.loadLevel(this, "test");
 
 		// Add things part 3
 		add(collision);
+		add(items);
 		add(tux);
+		add(hud);
 
 		// Camera
 		FlxG.camera.follow(tux, PLATFORMER);
@@ -40,5 +47,11 @@ class PlayState extends FlxState
 
 		// Tux collision
 		FlxG.collide(collision, tux);
+		FlxG.overlap(items, tux, collideItems);
+	}
+
+	function collideItems(coin:Coin, tux:Tux)
+	{
+		coin.collect();
 	}
 }
