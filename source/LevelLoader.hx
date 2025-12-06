@@ -8,6 +8,7 @@ import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxTilemap;
+import objects.Coin;
 import objects.solid.Solid;
 import objects.solid.Unisolid;
 import states.PlayState;
@@ -71,16 +72,8 @@ class LevelLoader extends FlxState
         state.add(state.map);
         state.add(mainTwoMap);
 
-        if (tiledMap.getLayer("Player") != null)
-        {
-            var tuxLayer:TiledObjectLayer = cast tiledMap.getLayer("Player");
-            var tuxPosition:TiledObject = tuxLayer.objects[0];
-            state.tux.setPosition(tuxPosition.x, tuxPosition.y - 56);
-        }
-        else
-        {
-            trace("Player object layer not found, credits to Discover HaxeFlixel for this code");
-        }
+        var tuxPosition:TiledObject = getLevelObjects(tiledMap, "Player")[0];
+        state.tux.setPosition(tuxPosition.x, tuxPosition.y - 56);
 
         // Quickly taken from LevelLoader in my other game that also used Discover HaxeFlixel.
         for (solid in getLevelObjects(tiledMap, "Solid"))
@@ -93,6 +86,11 @@ class LevelLoader extends FlxState
         {
             var unisolidSquare = new Unisolid(solid.x, solid.y, solid.width, solid.height); // Need this because width and height.
             state.collision.add(unisolidSquare);
+        }
+
+        for (coin in getLevelObjects(tiledMap, "Coins"))
+        {
+            state.items.add(new Coin(coin.x, coin.y - 32));
         }
     }
 

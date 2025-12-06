@@ -67,16 +67,20 @@ class Tux extends FlxSprite
     // Animate Tux
     function animate()
     {
+        // If Tux is on the floor and staying where he is, do stand animation
         if (velocity.x == 0 && isTouching(FLOOR))
         {
             animation.play("stand");
         }
         
+        // If Tux is on the floor and not staying where he is, do walk animation
         if (velocity.x != 0 && isTouching(FLOOR))
         {
             animation.play("walk");
         }
 
+        // If Tux is not on the floor, do jump animation
+        // TODO: Is velocity.y != 0 needed?
         if (velocity.y != 0 && !isTouching(FLOOR))
         {
             animation.play("jump");
@@ -85,20 +89,25 @@ class Tux extends FlxSprite
 
     function move()
     {
+        // Speed is 0 at beginning
         acceleration.x = 0;
 
+        // If player presses left keys, walk left
         if (FlxG.keys.anyPressed([LEFT, A]))
         {
             flipX = true;
             direction = -1;
             acceleration.x -= tuxAcceleration;
         }
+        // If player presses right keys, walk right
         else if (FlxG.keys.anyPressed([RIGHT, D]))
         {
             flipX = false;
             direction = 1;
             acceleration.x += tuxAcceleration;
         }
+
+        // If player pressing jump keys and is on ground, jump
         if (FlxG.keys.anyJustPressed([SPACE, W, UP]) && isTouching(FLOOR))
         {
             if (velocity.x == walkSpeed || velocity.x == -walkSpeed)
@@ -110,6 +119,8 @@ class Tux extends FlxSprite
                 velocity.y = -minJumpHeight;
             }
         }
+        
+        // Variable Jump Height
         if (velocity.y < 0 && FlxG.keys.anyJustReleased([SPACE, W, UP]))
         {
             velocity.y -= velocity.y * 0.5;
