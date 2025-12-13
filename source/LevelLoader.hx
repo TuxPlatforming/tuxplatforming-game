@@ -13,6 +13,8 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxTilemap;
 import objects.BonusBlock;
+import objects.BrickBlock.CoinSandBrickBlock;
+import objects.BrickBlock.EmptySandBrickBlock;
 import objects.Coin;
 import objects.solid.Goal;
 import objects.solid.Solid;
@@ -123,6 +125,17 @@ class LevelLoader extends FlxState
             var blockToAdd = new BonusBlock(block.x, block.y - 32);
             blockToAdd.content = block.type;
             state.blocks.add(blockToAdd);
+        }
+
+        for (brick in getLevelObjects(tiledMap, "Bricks"))
+        {
+            switch(brick.type)
+            {
+                default:
+                    state.bricks.add(new EmptySandBrickBlock(brick.x, brick.y - 32));
+                case "coinsand":
+                    state.bricks.add(new CoinSandBrickBlock(brick.x, brick.y - 32));
+            }
         }
 
         for (enemy in getLevelObjects(tiledMap, "Enemies"))

@@ -11,6 +11,8 @@ import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import objects.BonusBlock;
+import objects.BrickBlock.CoinSandBrickBlock;
+import objects.BrickBlock.EmptySandBrickBlock;
 import objects.Coin;
 import objects.powerups.Candle;
 import objects.powerups.Crystal;
@@ -27,6 +29,7 @@ class PlayState extends FlxState
 	public var tux(default, null):Tux;
 	public var items(default, null):FlxTypedGroup<FlxSprite>;
 	public var blocks(default, null):FlxTypedGroup<FlxSprite>;
+	public var bricks(default, null):FlxTypedGroup<FlxSprite>;
 	private var hud:HUD;
 	private var entities:FlxGroup;
 
@@ -44,12 +47,14 @@ class PlayState extends FlxState
 		tux = new Tux();
 		items = new FlxTypedGroup<FlxSprite>();
 		blocks = new FlxTypedGroup<FlxSprite>();
+		bricks = new FlxTypedGroup<FlxSprite>();
 		hud = new HUD();
 
 		LevelLoader.loadLevel(this, Global.currentLevel);
 
 		// Add things part 3
 		entities.add(items);
+		entities.add(bricks);
 		entities.add(blocks);
 		entities.add(enemies);
 		add(collision);
@@ -75,6 +80,7 @@ class PlayState extends FlxState
 		FlxG.collide(collision, tux);
 		FlxG.overlap(entities, tux, collideEntities);
 		FlxG.collide(tux, blocks, collideEntities);
+		FlxG.collide(tux, bricks, collideEntities);
 
 		// Enemy + Entity collision
 		FlxG.collide(collision, entities);
@@ -89,10 +95,13 @@ class PlayState extends FlxState
 				enemy.collideFireball(cast entity);
 			}
 		} );
+		FlxG.collide(enemies, blocks);
+		FlxG.collide(enemies, bricks);
 
 		// Item collision
 		FlxG.collide(collision, items);
 		FlxG.collide(items, blocks);
+		FlxG.collide(items, bricks);
 	}
 
 	function collideEntities(entity:FlxSprite, tux:Tux)
@@ -108,6 +117,11 @@ class PlayState extends FlxState
 		}
 
 		if (Std.isOfType(entity, BonusBlock))
+		{
+			(cast entity).hit(tux);
+		}
+
+		if (Std.isOfType(entity, EmptySandBrickBlock) || Std.isOfType(entity, CoinSandBrickBlock))
 		{
 			(cast entity).hit(tux);
 		}
