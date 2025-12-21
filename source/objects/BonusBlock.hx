@@ -13,7 +13,7 @@ class BonusBlock extends FlxSprite
 {
     public var content:String;
     public var isEmpty = false;
-    var HFraycast2d:FlxSprite; // it's BASICALLY a raycast2d, right??
+    var HFarea2d:FlxSprite; // Area2D-like thing. Not raycast, sorry.
 
     var blockImage = FlxAtlasFrames.fromSparrow('assets/images/objects/bonusblock.png', 'assets/images/objects/bonusblock.xml');
 
@@ -24,19 +24,19 @@ class BonusBlock extends FlxSprite
         immovable = true;
 
         frames = blockImage;
-        animation.addByPrefix('full', 'normal', 12, true); // I messed up and used default settings for the FNF Spritesheet and XML generator.
+        animation.addByPrefix('full', 'normal', 12, true);
         animation.addByPrefix('empty', 'empty', 12, false);
         animation.play("full");
 
-        HFraycast2d = new FlxSprite(x + 8, y + height);
-        HFraycast2d.makeGraphic(Std.int(width) - 16, Std.int(height) + 3, FlxColor.TRANSPARENT); // all this STD is gonna give me a... Nevermind. Forget about it. Std.int is there because width and height need to be ints.
-        HFraycast2d.immovable = true;
-        HFraycast2d.solid = false;
+        HFarea2d = new FlxSprite(x + 8, y + height);
+        HFarea2d.makeGraphic(Std.int(width) - 16, Std.int(height) + 3, FlxColor.TRANSPARENT); // all this STD is gonna give me a... Nevermind. Forget about it. Std.int is there because width and height need to be ints.
+        HFarea2d.immovable = true;
+        HFarea2d.solid = false;
     }
 
     public function hit(tux:Tux)
     {
-        if (HFraycast2d.overlaps(tux) == false)
+        if (!HFarea2d.overlaps(tux))
         {
             return;
         }
