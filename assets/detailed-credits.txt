@@ -18,8 +18,8 @@ Everything here is licensed under CC-BY-SA 4.0.
 
 IMAGES:
 assets/images/backgrounds/deserthills.png - Vaesea (Hills and gradient), Sunburn (Sand texture for hills) - TP + OGA - CC-BY 3.0 - https://opengameart.org/node/7958
-All 2D player Tux images are made by Vaesea, they can't have any license as Tux doesn't seem to be under any license. You can use the images freely.
-Worldmap Tux is the image that Larry Ewing created for Linux, which doesn't seem to be under any license, so it seems you can use that image freely.
+All 2D player Tux images are made by Vaesea, they can't have any license as Tux doesn't seem to be under any strict license.
+Worldmap Tux is just the image Larry Ewing made, and as wikipedia says, if you use it, just mention that Larry Ewing made it and that he used GIMP to make it.
 assets/images/characters/bubble.* - Vaesea - TP
 assets/images/characters/desert-tortoise.* - Vaesea - TP
 assets/images/characters/sandmonster.* - Vaesea - TP
@@ -38,7 +38,7 @@ assets/images/objects/fireball.png - Vaesea - TP
 assets/images/particles/brick.png - Vaesea - TP
 assets/images/worldmap/levelsquares.png - Vaesea - TP
 assets/images/worldmap/rock.png - Vaesea - TP
-assets/images/worldmap/tux.png - Larry Ewing - Linux - Not sure what license Tux is, perhaps Tux is even public domain. If you can, ask Larry Ewing about it.
+assets/images/worldmap/tux.png - Larry Ewing - Linux - Not sure what license Tux is, read the stuff above the paths in this images section.
 assets/images/tiles.png - Multiple People - TP + OGA - Uses: https://opengameart.org/content/totem-construction-kit for Stone tiles. Pyramid brick tiles are made by FilipOK.
 
 MUSIC:
